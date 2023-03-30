@@ -1,0 +1,8 @@
+<div class="dashboard">
+    <div class="header">{{title}}</div>
+    <div class="content">
+        <div class="planets-list" >
+            <planet-item *ngFor="let planet of planets" [planet]="planet"></planet-item>
+        </div>
+    </div>
+</div>

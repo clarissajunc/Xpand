@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="image">
+        <img [src]="planet.image" />
+        <p>{{planet.name}}</p>
+    </div>
+    <div class="info">
+        <p>{{planet.description ?? 'No description yet. :/'}}</p>
+        <div class="author" *ngIf="planet.descriptionAuthor">
+            <p>by captain </p>
+            <p>{{planet.descriptionAuthor}}</p>
+        </div>
+        <div class="robots" *ngIf="planet.robots">
+            <p>Robots </p>
+            <p>{{planet.robots}}</p>
+        </div>
+
+    </div>
+    <div class="status" *ngIf="getStatusStyle() as statusStyle">
+        <button [class]="statusStyle.cssClass">{{statusStyle.text}}</button>
+    </div>
+</div>

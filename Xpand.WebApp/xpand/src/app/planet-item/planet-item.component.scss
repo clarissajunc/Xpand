@@ -1,0 +1,45 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border: 1px solid black;
+
+    .image {
+
+        img {
+            height: 50px;
+            width: 50px;
+        }
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        .author,
+        .robots{
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+
+    }
+
+    .status {
+
+        .status__todo{
+
+        }
+
+        .status__enroute{
+
+        }
+
+        .status__ok {
+
+        }
+
+        .status__notok{
+
+        }
+    }
+}
