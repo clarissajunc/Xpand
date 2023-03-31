@@ -2,9 +2,16 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    border: 1px solid black;
+    border: 1px solid #f3f3f3;
 
     .image {
+        font-weight: 800;
+        font-size: small;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.2rem;
 
         img {
             height: 50px;
@@ -15,31 +22,67 @@
     .info {
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
+        flex-grow: 1;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        .description {
+            font-size: small;
+        }
+
+        .empty-description {
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            flex-grow: 1;
+        }
+
         .author,
-        .robots{
+        .robots {
             display: flex;
             flex-direction: row;
             gap: 0.5rem;
+            font-size: 0.7rem;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .robots {
+            margin-bottom: 0.5rem;
         }
 
     }
 
     .status {
+        display: flex;
+        align-items: center;
 
-        .status__todo{
-
+        button {
+            background: white;
+            margin: 0;
+            border: 0;
+            font-weight: 800;
         }
 
-        .status__enroute{
+        .status__todo {
+            color: #a2ff79;
+        }
 
+        .status__enroute {
+            color: #aeb0b0;
         }
 
         .status__ok {
-
+            color: #a2ff79;
         }
 
-        .status__notok{
-
+        .status__notok {
+            color: #bd6f73;
         }
     }
 }

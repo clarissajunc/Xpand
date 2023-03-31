@@ -15,27 +15,23 @@ export class PlanetItemComponent {
         switch (this.planet.status) {
             case PlanetStatus.TODO:
                 return {
-                    iconSrc: 'assets/screenfail.svg',
                     text: 'TODO',
                     cssClass: 'status__todo',
                 };
             case PlanetStatus.EnRoute:
                 return {
-                    iconSrc: 'assets/not-enrolled.svg',
                     text: 'En Route',
                     cssClass: 'status__enroute',
                 };
             case PlanetStatus.NotOK:
                 return {
-                    iconSrc: 'assets/check.svg',
-                    text: 'participating',
-                    cssClass: 'OK',
+                    text: 'OK',
+                    cssClass: 'status__ok',
                 };
             case PlanetStatus.OK:
                 return {
-                    iconSrc: 'assets/check.svg',
-                    text: 'participating',
-                    cssClass: '!OK',
+                    text: '!OK',
+                    cssClass: 'status__notok',
                 };
             default:
                 return undefined;
