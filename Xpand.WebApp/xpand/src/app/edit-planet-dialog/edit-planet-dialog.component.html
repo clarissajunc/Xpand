@@ -1,0 +1,19 @@
+<div class="dialog-container">
+    <div class="header">
+        <span class="title">Edit planet {{planet.name}}</span>
+        <img class="close" src="assets/icon-close.svg" (click)="close()" />
+    </div>
+
+    <mat-dialog-content>
+        <div class="content">
+            Test
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <div class="actions">
+            <button *ngIf="isValid">Save</button>
+            <button>Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</div>

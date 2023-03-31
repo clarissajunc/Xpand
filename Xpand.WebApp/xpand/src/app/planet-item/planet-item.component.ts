@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPlanetDialogComponent } from '../edit-planet-dialog/edit-planet-dialog.component';
 import { Planet, PlanetStatus } from '../models';
 
 @Component({
@@ -11,6 +13,9 @@ export class PlanetItemComponent {
     @Input()
     public planet!: Planet;
 
+    constructor(private _dialogHelper: MatDialog) {
+
+    }
     public getStatusStyle(): any {
         switch (this.planet.status) {
             case PlanetStatus.TODO:
@@ -36,5 +41,13 @@ export class PlanetItemComponent {
             default:
                 return undefined;
         }
+    }
+
+    public onPlanetClicked(): void {
+        this._dialogHelper.open(EditPlanetDialogComponent, {
+            data: {
+                planet: this.planet
+            }
+        })
     }
 }

@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" (click)="onPlanetClicked()">
     <div class="image">
         <img [src]="planet.image" />
         <p>{{planet.name}}</p>
@@ -18,6 +18,6 @@
 
     </div>
     <div class="status" *ngIf="getStatusStyle() as statusStyle">
-        <button [class]="statusStyle.cssClass">{{statusStyle.text}}</button>
+        <p [class]="statusStyle.cssClass">{{statusStyle.text}}</p>
     </div>
 </div>
