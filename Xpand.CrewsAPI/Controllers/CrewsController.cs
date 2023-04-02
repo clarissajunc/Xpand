@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Xpand.CrewsAPI.Queries;
 
 namespace Xpand.CrewsAPI.Controllers
 {
@@ -6,9 +9,42 @@ namespace Xpand.CrewsAPI.Controllers
     [Route("[controller]")]
     public class CrewsController: Controller
     {
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public CrewsController(IMediator mediator)
         {
-            return Ok();
+            this._mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var crews = await _mediator.Send(new GetCrewsQuery());
+            var fullCrews = crews.Include(c => c.Robots).Include(c => c.Captain)?.ToList();
+
+            if (fullCrews == null || !fullCrews.Any()) 
+            {
+                return NoContent();
+            }
+
+            return Ok(fullCrews);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            if (id == default)
+            {
+                ModelState.AddModelError(nameof(id), $"The {nameof(id)} is required");
+                return BadRequest(ModelState);
+            }
+
+            var crew = await _mediator.Send(new GetCrewQuery
+            {
+                Predicate = c => c.Id == id
+            });
+
+            return crew != null ? Ok(crew) : NotFound();
         }
     }
 }
