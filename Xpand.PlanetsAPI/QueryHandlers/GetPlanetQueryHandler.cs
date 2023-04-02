@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Xpand.PlanetsAPI.Data;
 using Xpand.PlanetsAPI.Models;
 using Xpand.PlanetsAPI.Queries;
@@ -16,7 +17,7 @@ namespace Xpand.PlanetsAPI.Handlers
 
         public async Task<Planet?> Handle(GetPlanetQuery request, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(_context.Planets.FirstOrDefault(request.Predicate));
+            return await _context.Planets.FirstOrDefaultAsync(request.Predicate, cancellationToken);
         }
     }
 }
