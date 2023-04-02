@@ -6,8 +6,6 @@
 
         public byte[] Bytes { get; set; }
 
-        public int? PlanetId { get; set; }  
-
         public Planet? Planet { get; set; }
     }
 }

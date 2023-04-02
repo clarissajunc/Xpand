@@ -32,7 +32,7 @@ namespace Xpand.PlanetsAPI.Data
                       .IsRequired(false);
             });
 
-            DbInitializer.Initialize(modelBuilder);
+            DbInitializer.Seed(modelBuilder);
         }
     }
 }
