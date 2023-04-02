@@ -27,7 +27,7 @@ namespace Xpand.PlanetsAPI.Data
                       .IsRequired(true);
 
                 entity.HasOne(p => p.DescriptionAuthor)
-                      .WithMany(c => c.Planets)
+                      .WithMany()
                       .HasForeignKey(p => p.DescriptionAuthorId)
                       .IsRequired(false);
             });

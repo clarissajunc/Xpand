@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Xpand.PlanetsAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,18 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Planets API", Version= "v1" }));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 // Register db
 builder.Services.AddDbContext<PlanetContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
 var app = builder.Build();
 
-//TODO
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Planets API V1"));
+}
 
 // Configure the HTTP request pipeline.
 

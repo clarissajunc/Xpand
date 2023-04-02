@@ -7,7 +7,5 @@ namespace Xpand.PlanetsAPI.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public ICollection<Planet> Planets { get; set; } = new List<Planet>();
     }
 }
