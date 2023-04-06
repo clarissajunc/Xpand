@@ -20,7 +20,7 @@ namespace Xpand.PlanetsAPI.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var planets = await _mediator.Send(new GetPlanetsQuery());
-            var planetsWithAuthors = planets.Include(p => p.DescriptionAuthor).ToList();
+            var planetsWithAuthors = planets.Include(p => p.DescriptionAuthor).Include(p => p.Image).ToList();
 
             if (planetsWithAuthors == null || !planetsWithAuthors.Any())
             {

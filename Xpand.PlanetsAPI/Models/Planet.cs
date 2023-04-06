@@ -18,6 +18,10 @@ namespace Xpand.PlanetsAPI.Models
 
         public Captain? DescriptionAuthor { get; set; }
 
+        public int? CrewId { get; set; }
+
+        public Crew? Crew { get; set; }
+
         public PlanetStatus Status { get; set; }
     }
 }

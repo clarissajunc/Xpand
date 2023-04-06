@@ -30,6 +30,10 @@ namespace Xpand.PlanetsAPI.Data
                       .WithMany()
                       .HasForeignKey(p => p.DescriptionAuthorId)
                       .IsRequired(false);
+
+                entity.HasOne(p => p.Crew)
+                      .WithOne()
+                      .HasForeignKey<Planet>(p => p.CrewId);
             });
 
             DbInitializer.Seed(modelBuilder);

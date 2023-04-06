@@ -10,6 +10,6 @@
 
         public Human Captain { get; set; } = null!;
 
-        public ICollection<Robot> Robots { get; set; } = new List<Robot>();
+        public ICollection<Robot> Robots { get; set; } 
     }
 }

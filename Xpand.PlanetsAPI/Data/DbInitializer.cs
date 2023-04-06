@@ -22,6 +22,13 @@ namespace Xpand.PlanetsAPI.Data
                 new Captain { Id = 4, Name = "Rick Anderson" }
             );
 
+            modelBuilder.Entity<Crew>().HasData(
+                new Crew { Id = 1, Name = "Crew1" },
+                new Crew { Id = 2, Name = "Crew2" },
+                new Crew { Id = 3, Name = "Crew3" },
+                new Crew { Id = 4, Name = "Crew4" }
+            );
+
             modelBuilder.Entity<Planet>().HasData(
                 new Planet
                 {
@@ -30,7 +37,8 @@ namespace Xpand.PlanetsAPI.Data
                     ImageId = 1,
                     Description = "While visiting this planet, the robots have uncovered various forms of life",
                     DescriptionAuthorId = 1,
-                    Status = Models.Enums.PlanetStatus.Ok
+                    Status = Models.Enums.PlanetStatus.Ok,
+                    CrewId = 1,
                 },
                 new Planet
                 {
@@ -39,7 +47,8 @@ namespace Xpand.PlanetsAPI.Data
                     ImageId = 2,
                     Description = "0.2% nutrients in the soil. Unfortunately that cannot sustain life.",
                     DescriptionAuthorId = 2,
-                    Status = Models.Enums.PlanetStatus.NotOk
+                    Status = Models.Enums.PlanetStatus.NotOk,
+                    CrewId = 2,
                 },
                 new Planet
                 {
@@ -48,7 +57,8 @@ namespace Xpand.PlanetsAPI.Data
                     ImageId = 3,
                     Description = null,
                     DescriptionAuthorId = null,
-                    Status = Models.Enums.PlanetStatus.EnRoute
+                    Status = Models.Enums.PlanetStatus.EnRoute,
+                    CrewId = 3,
                 },
                 new Planet
                 {
@@ -57,7 +67,8 @@ namespace Xpand.PlanetsAPI.Data
                     ImageId = 4,
                     Description = "We\'ve found another sapient species and have engaged in communication",
                     DescriptionAuthorId = 3,
-                    Status = Models.Enums.PlanetStatus.Ok
+                    Status = Models.Enums.PlanetStatus.Ok,
+                    CrewId = 4
                 },
                 new Planet
                 {
@@ -66,7 +77,8 @@ namespace Xpand.PlanetsAPI.Data
                     ImageId = 5,
                     Description = "Just a huge floating rock",
                     DescriptionAuthorId = 4,
-                    Status = Models.Enums.PlanetStatus.NotOk
+                    Status = Models.Enums.PlanetStatus.NotOk,
+                    CrewId = null,
                 }
             );
         }
