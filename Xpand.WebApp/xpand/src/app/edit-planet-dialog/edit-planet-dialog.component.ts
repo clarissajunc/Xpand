@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Planet, PlanetStatus } from '../models';
+import { EditPlanet, Planet, PlanetStatus } from '../models';
+import { PlanetService } from '../services';
 
 @Component({
     selector: 'app-edit-planet-dialog',
@@ -17,6 +18,7 @@ export class EditPlanetDialogComponent {
     public planetForm: FormGroup;
 
     constructor(
+        private _service: PlanetService,
         private _dialog: MatDialogRef<EditPlanetDialogComponent>,
         @Inject(MAT_DIALOG_DATA) data: any
     ) {
@@ -61,9 +63,18 @@ export class EditPlanetDialogComponent {
 
     public onSave(): void {
         console.log(this.planetForm.value);
+
+        this._service.updatePlanet(this.planet.id, <EditPlanet>{
+            id: this.planet.id,
+            description: this.planetForm.controls['description'].value,
+            planetStatus: this.planetForm.controls['status'].value,
+            descriptionAuthorId: this.planetForm.controls['description'].value ? 4 : null,
+        }).subscribe(() => {
+            this._dialog.close(true);
+        });
     }
 
     public close(): void {
-        this._dialog.close();
+        this._dialog.close(false);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System.Linq.Expressions;
-using Xpand.PlanetsAPI.Models;
+using Xpand.PlanetsAPI.Data.Models;
 
 namespace Xpand.PlanetsAPI.Queries
 {

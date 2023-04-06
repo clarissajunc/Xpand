@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Xpand.PlanetsAPI.Data;
-using Xpand.PlanetsAPI.Models;
+using Xpand.PlanetsAPI.Data.Models;
 using Xpand.PlanetsAPI.Queries;
 
 namespace Xpand.PlanetsAPI.Handlers

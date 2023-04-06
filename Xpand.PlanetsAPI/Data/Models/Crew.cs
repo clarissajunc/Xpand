@@ -1,6 +1,6 @@
-﻿namespace Xpand.API.Models
+﻿namespace Xpand.PlanetsAPI.Data.Models
 {
-    public class Human
+    public class Crew
     {
         public int Id { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace Xpand.API.Models
+﻿namespace Xpand.API.Domain.Models
 {
     public class Crew
     {

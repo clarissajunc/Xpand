@@ -1,6 +1,7 @@
-﻿using Xpand.API.Models.Enums;
+﻿using Xpand.API.Domain.Models;
+using Xpand.API.Domain.Models.Enums;
 
-namespace Xpand.API.Models
+namespace Xpand.API.Domain.Models
 {
     public class Planet
     {
@@ -12,7 +13,7 @@ namespace Xpand.API.Models
 
         public PlanetStatus Status { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public Human? DescriptionAuthor { get; set; }
         

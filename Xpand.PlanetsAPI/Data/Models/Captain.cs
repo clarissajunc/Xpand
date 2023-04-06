@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace Xpand.PlanetsAPI.Models
+namespace Xpand.PlanetsAPI.Data.Models
 {
     public class Captain
     {

@@ -1,4 +1,4 @@
-﻿namespace Xpand.API.Models.Enums
+﻿namespace Xpand.PlanetsAPI.Data.Models.Enums
 {
     public enum PlanetStatus
     {

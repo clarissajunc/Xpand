@@ -1,6 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Xpand.PlanetsAPI.Commands;
+using Xpand.PlanetsAPI.Data.Models;
+using Xpand.PlanetsAPI.Exceptions;
+using Xpand.PlanetsAPI.Models;
 using Xpand.PlanetsAPI.Queries;
 
 namespace Xpand.PlanetsAPI.Controllers
@@ -45,6 +49,49 @@ namespace Xpand.PlanetsAPI.Controllers
             });
 
             return planet != null ? Ok(planet) : NotFound();
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] EditPlanet planet)
+        {
+            if (id == default)
+            {
+                ModelState.AddModelError(nameof(id), $"The {nameof(id)} is required");
+            }
+
+            if (planet == null)
+            {
+                ModelState.AddModelError(nameof(planet), $"The {nameof(planet)} is required");
+            }
+
+            if (id != planet?.Id)
+            {
+                ModelState.AddModelError(nameof(id), $"The {id} cannot be different");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _mediator.Send(new UpdatePlanetCommand(planet));
+            }
+            catch (Exception ex)
+            {
+                if (ex is ValidationException || ex is ArgumentNullException)
+                {
+                    return BadRequest();
+                }
+
+                if (ex is NotFoundException)
+                {
+                    return NotFound();
+                }
+            }
+
+            return NoContent();
         }
     }
 }

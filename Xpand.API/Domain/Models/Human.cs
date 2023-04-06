@@ -1,6 +1,6 @@
-﻿namespace Xpand.API.Models
+﻿namespace Xpand.API.Domain.Models
 {
-    public class Robot
+    public class Human
     {
         public int Id { get; set; }
 

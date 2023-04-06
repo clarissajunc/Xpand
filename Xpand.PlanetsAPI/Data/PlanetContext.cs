@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Xpand.PlanetsAPI.Models;
+using Xpand.PlanetsAPI.Data.Models;
 
 namespace Xpand.PlanetsAPI.Data
 {

@@ -1,6 +1,6 @@
-﻿using Xpand.PlanetsAPI.Models.Enums;
+﻿using Xpand.PlanetsAPI.Data.Models.Enums;
 
-namespace Xpand.PlanetsAPI.Models
+namespace Xpand.PlanetsAPI.Data.Models
 {
     public class Planet
     {

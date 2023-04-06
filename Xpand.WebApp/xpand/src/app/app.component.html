@@ -2,7 +2,7 @@
     <div class="header"><h3>{{title}}</h3></div>
     <div class="content">
         <div class="planets-list" *ngIf="planets$ | async as planets">
-            <planet-item *ngFor="let planet of planets" [planet]="planet"></planet-item>
+            <planet-item *ngFor="let planet of planets" [planet]="planet" (updated)="onUpdated()"></planet-item>
         </div>
     </div>
 </div>

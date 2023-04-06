@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
-import { Planet } from '../models';
+import { EditPlanet, Planet } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -36,8 +36,8 @@ export class PlanetService {
             )
     }
 
-    public updatePlanet(id: number, planet: Planet): Observable<void> {
-        return this._httpClient.put<void>(`${this._url}/${id}`, planet)
+    public updatePlanet(id: number, planet: EditPlanet): Observable<void> {
+        return this._httpClient.post<void>(`${this._url}/dashboard/${id}`, planet)
             .pipe(
                 tap(() => console.log('[PlanetService]: Loaded the planets.')),
                 catchError((error) => {

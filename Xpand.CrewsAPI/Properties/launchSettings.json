@@ -12,8 +12,8 @@
     "Xpand.CrewsAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "crews",
+      "launchBrowser": false,
+      "launchUrl": "",
       "applicationUrl": "https://localhost:7102;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -21,8 +21,8 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "crews",
+      "launchBrowser": false,
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

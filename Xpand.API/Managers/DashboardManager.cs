@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Xpand.API.Models;
+using System.Net;
+using System.Text;
+using Xpand.API.Domain.Models;
 
 namespace Xpand.API.Managers
 {
@@ -55,6 +57,30 @@ namespace Xpand.API.Managers
             //TODO add validation
 
             return content;
+        }
+
+        public async Task<HttpStatusCode> UpdatePlanetAsync(int planetId, EditPlanet editPlanet)
+        {
+            if (planetId == default)
+            {
+                throw new ArgumentNullException(nameof(planetId));
+            }
+
+            if (editPlanet == null)
+            {
+                throw new ArgumentNullException(nameof(editPlanet));
+            }
+
+            if (planetId != editPlanet.Id)
+            {
+                throw new ArgumentException($"The {planetId} cannot be different", nameof(editPlanet));
+            }
+
+            var response = await _httpClient.PostAsync(
+                $"{_servicesConfig.PlanetsUrl}/planets/{planetId}",
+                new StringContent(JsonConvert.SerializeObject(editPlanet), Encoding.UTF8, "application/json"));
+
+            return response.StatusCode;
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPlanetDialogComponent } from '../edit-planet-dialog/edit-planet-dialog.component';
 import { Planet, PlanetStatus } from '../models';
@@ -12,6 +12,9 @@ export class PlanetItemComponent {
 
     @Input()
     public planet!: Planet;
+
+    @Output()
+    public updated: EventEmitter<void> = new EventEmitter();
 
     constructor(private _dialogHelper: MatDialog) {
 
@@ -28,12 +31,12 @@ export class PlanetItemComponent {
                     text: 'En Route',
                     cssClass: 'status__enroute',
                 };
-            case PlanetStatus.NotOK:
+            case PlanetStatus.OK:
                 return {
                     text: 'OK',
                     cssClass: 'status__ok',
                 };
-            case PlanetStatus.OK:
+            case PlanetStatus.NotOK:
                 return {
                     text: '!OK',
                     cssClass: 'status__notok',
@@ -49,5 +52,11 @@ export class PlanetItemComponent {
                 planet: this.planet
             }
         })
+            .afterClosed()
+            .subscribe((result) => {
+                if (result) {
+                    this.updated.next();
+                }
+            });
     }
 }
