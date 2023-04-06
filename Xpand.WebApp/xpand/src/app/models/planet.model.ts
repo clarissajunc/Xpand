@@ -1,9 +1,12 @@
+import { SafeUrl } from '@angular/platform-browser';
 import { PlanetStatus } from './planet-status.model';
 
 export interface Planet {
     name: string;
 
-    image: string;
+    image: any[];
+
+    imageUrl: SafeUrl;
 
     description?: string;
 

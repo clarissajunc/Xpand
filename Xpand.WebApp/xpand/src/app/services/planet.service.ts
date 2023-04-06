@@ -8,12 +8,12 @@ import { Planet } from '../models';
 })
 export class PlanetService {
 
-    private readonly _url = 'api/planet';
+    private readonly _url = 'https://localhost:44364';
 
     constructor(private _httpClient: HttpClient) { }
 
     public getAll(): Observable<Planet[]> {
-        return this._httpClient.get<Planet[]>(this._url)
+        return this._httpClient.get<Planet[]>(`${this._url}/dashboard`)
             .pipe(
                 tap(() => console.log('[PlanetService]: Loaded the planets.')),
                 catchError((error) => {

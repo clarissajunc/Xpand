@@ -6,14 +6,31 @@
 
     <mat-dialog-content>
         <div class="content">
-            Test
+            <form [formGroup]="planetForm">
+                <mat-form-field appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+                <!-- <label for="description">Description: </label>
+                <input id="description" type="text" formControlName="description"> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let state of availableStates" [value]="state">
+                            {{  getStateString(state)}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- <label for="status">Status: </label>
+                <input id="status" type="text" formControlName="status"> -->
+            </form>
         </div>
     </mat-dialog-content>
 
     <mat-dialog-actions>
         <div class="actions">
-            <button *ngIf="isValid">Save</button>
-            <button>Cancel</button>
+            <button [disabled]="!planetForm.valid" (click)="onSave()">Save</button>
+            <button (click)="close()">Cancel</button>
         </div>
     </mat-dialog-actions>
 </div>
