@@ -19,6 +19,7 @@ export class PlanetItemComponent {
     constructor(private _dialogHelper: MatDialog) {
 
     }
+
     public getStatusStyle(): any {
         switch (this.planet.status) {
             case PlanetStatus.TODO:

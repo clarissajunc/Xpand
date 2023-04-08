@@ -19,21 +19,31 @@ namespace Xpand.CrewsAPI.Data
         {
             modelBuilder.Entity<Crew>(entity =>
             {
+                entity.Property(c => c.Name)
+                    .IsRequired();
+
                 entity.HasOne(c => c.Captain)
-                .WithOne(c => c.Crew)
-                .HasForeignKey<Crew>(c => c.CaptainId)
-                .IsRequired(true);
+                      .WithOne(c => c.Crew)
+                      .HasForeignKey<Crew>(c => c.CaptainId)
+                      .IsRequired(true);
             });
 
             modelBuilder.Entity<Robot>(entity =>
             {
+                entity.Property(r => r.Name)
+                    .IsRequired();
+
                 entity.HasOne(r => r.Crew)
-                .WithMany(c => c.Robots)
-                .HasForeignKey(r => r.CrewId)
-                .IsRequired(true);
+                      .WithMany(c => c.Robots)
+                      .HasForeignKey(r => r.CrewId)
+                      .IsRequired(true);
             });
 
-            modelBuilder.Entity<Human>();
+            modelBuilder.Entity<Human>(entity =>
+            {
+                entity.Property(h => h.Name)
+                    .IsRequired();
+            });
 
             DbInitializer.Seed(modelBuilder);
         }

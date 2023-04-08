@@ -13,9 +13,9 @@ namespace Xpand.API.Domain.Models
 
         public PlanetStatus Status { get; set; }
 
-        public string? Description { get; set; }
+        public int? DescriptionId { get; set; }
 
-        public Human? DescriptionAuthor { get; set; }
+        public Description? Description { get; set; }
         
         public int? CrewId { get; set; }
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Xpand.PlanetsAPI.Data;
 
@@ -11,9 +12,11 @@ using Xpand.PlanetsAPI.Data;
 namespace Xpand.PlanetsAPI.Migrations
 {
     [DbContext(typeof(PlanetContext))]
-    partial class PlanetContextModelSnapshot : ModelSnapshot
+    [Migration("20230408155350_Added_Description")]
+    partial class Added_Description
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace Xpand.PlanetsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Captains", (string)null);
+                    b.ToTable("Captains");
 
                     b.HasData(
                         new
@@ -75,7 +78,7 @@ namespace Xpand.PlanetsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Crew", (string)null);
+                    b.ToTable("Crew");
 
                     b.HasData(
                         new
@@ -120,7 +123,7 @@ namespace Xpand.PlanetsAPI.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Descriptions", (string)null);
+                    b.ToTable("Descriptions");
 
                     b.HasData(
                         new
@@ -163,7 +166,7 @@ namespace Xpand.PlanetsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
 
                     b.HasData(
                         new
@@ -232,7 +235,7 @@ namespace Xpand.PlanetsAPI.Migrations
                     b.HasIndex("ImageId")
                         .IsUnique();
 
-                    b.ToTable("Planets", (string)null);
+                    b.ToTable("Planets");
 
                     b.HasData(
                         new

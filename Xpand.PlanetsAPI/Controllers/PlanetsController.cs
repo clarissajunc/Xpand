@@ -23,7 +23,10 @@ namespace Xpand.PlanetsAPI.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var planets = await _mediator.Send(new GetPlanetsQuery());
-            var planetsWithAuthors = planets.Include(p => p.DescriptionAuthor).Include(p => p.Image).ToList();
+            var planetsWithAuthors = planets.Include(p => p.Description)
+                                            .ThenInclude(d => d.Author)
+                                            .Include(p => p.Image)
+                                            .ToList();
 
             if (planetsWithAuthors == null || !planetsWithAuthors.Any())
             {
@@ -75,7 +78,7 @@ namespace Xpand.PlanetsAPI.Controllers
 
             try
             {
-                await _mediator.Send(new UpdatePlanetCommand(planet));
+                await _mediator.Send(new UpdatePlanetCommand(planet!));
             }
             catch (Exception ex)
             {

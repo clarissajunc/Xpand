@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public byte[] Bytes { get; set; }
+        public byte[] Bytes { get; set; } = null!; 
 
         public Planet? Planet { get; set; }
     }

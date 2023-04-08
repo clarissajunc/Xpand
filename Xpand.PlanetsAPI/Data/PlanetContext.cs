@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Xpand.PlanetsAPI.Data.Models;
+using Xpand.PlanetsAPI.Data.Models.Enums;
 
 namespace Xpand.PlanetsAPI.Data
 {
@@ -11,29 +12,61 @@ namespace Xpand.PlanetsAPI.Data
 
         public DbSet<Planet> Planets { get; set; }
 
+        public DbSet<Description> Descriptions { get; set; }
+
         public PlanetContext(DbContextOptions<PlanetContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Captain>();
-            modelBuilder.Entity<Image>();
+            modelBuilder.Entity<Captain>(entity =>
+            {
+                entity.Property(c => c.Name)
+                .IsRequired();
+            });
+
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.Property(i => i.Bytes)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<Planet>(entity =>
             {
+                entity.Property(p => p.Name)
+                    .IsRequired();
+
                 entity.HasOne(p => p.Image)
                       .WithOne(i => i.Planet)
                       .HasForeignKey<Planet>(p => p.ImageId)
-                      .IsRequired(true);
+                      .IsRequired();
 
-                entity.HasOne(p => p.DescriptionAuthor)
-                      .WithMany()
-                      .HasForeignKey(p => p.DescriptionAuthorId)
+                entity.HasOne(p => p.Description)
+                      .WithOne()
+                      .HasForeignKey<Planet>(p => p.DescriptionId)
                       .IsRequired(false);
 
                 entity.HasOne(p => p.Crew)
                       .WithOne()
-                      .HasForeignKey<Planet>(p => p.CrewId);
+                      .HasForeignKey<Planet>(p => p.CrewId)
+                      .IsRequired(false);
+
+                entity.Property(p => p.Status)
+                    .HasDefaultValue(PlanetStatus.Todo)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<Description>(entity =>
+            {
+                entity.Property(d => d.Text)
+                    .HasMaxLength(150)
+                    .IsRequired();
+
+                entity.HasOne(d => d.Author)
+                    .WithMany()
+                    .HasForeignKey(d => d.AuthorId)
+                    .IsRequired();
             });
 
             DbInitializer.Seed(modelBuilder);

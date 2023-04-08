@@ -30,14 +30,20 @@ namespace Xpand.PlanetsAPI.Data
                 new Crew { Id = 4, Name = "Crew4" }
             );
 
+            modelBuilder.Entity<Description>().HasData(
+                new Description { Id = 1, AuthorId = 1, Text = "While visiting this planet, the robots have uncovered various forms of life." },
+                new Description { Id = 2, AuthorId = 2, Text = "0.2% nutrients in the soil. Unfortunately that cannot sustain life." },
+                new Description { Id = 3, AuthorId = 3, Text = "We've found another sapient species and have engaged in communication." },
+                new Description { Id = 4, AuthorId = 4, Text = "Just a huge floating rock" }
+            );
+
             modelBuilder.Entity<Planet>().HasData(
                 new Planet
                 {
                     Id = 1,
                     Name = "Tau 23",
                     ImageId = 1,
-                    Description = "While visiting this planet, the robots have uncovered various forms of life",
-                    DescriptionAuthorId = 1,
+                    DescriptionId = 1,
                     Status = PlanetStatus.Ok,
                     CrewId = 1,
                 },
@@ -46,8 +52,7 @@ namespace Xpand.PlanetsAPI.Data
                     Id = 2,
                     Name = "Zeita 7",
                     ImageId = 2,
-                    Description = "0.2% nutrients in the soil. Unfortunately that cannot sustain life.",
-                    DescriptionAuthorId = 2,
+                    DescriptionId = 2,
                     Status = PlanetStatus.NotOk,
                     CrewId = 2,
                 },
@@ -56,8 +61,7 @@ namespace Xpand.PlanetsAPI.Data
                     Id = 3,
                     Name = "Sigma 17",
                     ImageId = 3,
-                    Description = null,
-                    DescriptionAuthorId = null,
+                    DescriptionId = null,
                     Status = PlanetStatus.EnRoute,
                     CrewId = 3,
                 },
@@ -66,8 +70,7 @@ namespace Xpand.PlanetsAPI.Data
                     Id = 4,
                     Name = "Kappa 44",
                     ImageId = 4,
-                    Description = "We\'ve found another sapient species and have engaged in communication",
-                    DescriptionAuthorId = 3,
+                    DescriptionId = 3,
                     Status = PlanetStatus.Ok,
                     CrewId = 4
                 },
@@ -76,8 +79,7 @@ namespace Xpand.PlanetsAPI.Data
                     Id = 5,
                     Name = "Tau 24",
                     ImageId = 5,
-                    Description = "Just a huge floating rock",
-                    DescriptionAuthorId = 4,
+                    DescriptionId = 4,
                     Status = PlanetStatus.NotOk,
                     CrewId = null,
                 }
@@ -96,14 +98,11 @@ namespace Xpand.PlanetsAPI.Data
             //Use BinaryReader to read file stream into byte array.
             BinaryReader br = new BinaryReader(fStream);
 
-            //When you use BinaryReader, you need to supply number of bytes 
-            //to read from file.
-            //In this case we want to read entire file. 
-            //So supplying total number of bytes.
+            //When you use BinaryReader, you need to supply number of bytes to read from file.
+            //In this case we want to read entire file, so supplying total number of bytes.
             byte[]? data = br.ReadBytes((int)numBytes);
 
             return data;
         }
     }
-
 }

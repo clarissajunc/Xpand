@@ -36,7 +36,6 @@ namespace Xpand.API.Controllers
 
             foreach (var planet in planetDTOs)
             {
-                //var currentPlanet = planet;
                 if (!planet.CrewId.HasValue)
                 {
                     continue;

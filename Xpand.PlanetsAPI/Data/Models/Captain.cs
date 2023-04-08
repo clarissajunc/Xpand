@@ -6,6 +6,6 @@ namespace Xpand.PlanetsAPI.Data.Models
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }

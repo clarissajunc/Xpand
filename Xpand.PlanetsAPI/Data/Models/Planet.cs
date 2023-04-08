@@ -10,13 +10,11 @@ namespace Xpand.PlanetsAPI.Data.Models
 
         public Image Image { get; set; } = null!;
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
-        public string? Description { get; set; }
+        public int? DescriptionId { get; set; }
 
-        public int? DescriptionAuthorId { get; set; }
-
-        public Captain? DescriptionAuthor { get; set; }
+        public Description? Description { get; set; }
 
         public int? CrewId { get; set; }
 

@@ -2,6 +2,7 @@
 
 using Xpand.PlanetsAPI.Commands;
 using Xpand.PlanetsAPI.Data;
+using Xpand.PlanetsAPI.Data.Models;
 using Xpand.PlanetsAPI.Data.Models.Enums;
 using Xpand.PlanetsAPI.Exceptions;
 
@@ -31,9 +32,13 @@ namespace Xpand.PlanetsAPI.CommandHandlers
                 throw new ValidationException();
             }
 
+            DeleteExistingDescription(planet.DescriptionId);
+
             planet.Status = request.EditPlanet.PlanetStatus;
-            planet.Description = request.EditPlanet.Description;
-            planet.DescriptionAuthorId = request.EditPlanet.DescriptionAuthorId;
+            planet.Description = new Description { 
+                Text = request.EditPlanet!.Description!, 
+                AuthorId = request.EditPlanet!.DescriptionAuthorId!.Value
+            };
 
             _context.Planets.Update(planet);
             _context.SaveChanges();
@@ -64,15 +69,29 @@ namespace Xpand.PlanetsAPI.CommandHandlers
                 throw new ArgumentException(nameof(request));
             }
 
-            if (request.EditPlanet.Description == null && request.EditPlanet.DescriptionAuthorId.HasValue)
+            if (string.IsNullOrEmpty(request.EditPlanet.Description) && request.EditPlanet.DescriptionAuthorId.HasValue)
             {
                 throw new ValidationException();
             }
 
-            if (request.EditPlanet.Description != null && !request.EditPlanet.DescriptionAuthorId.HasValue)
+            if (!string.IsNullOrEmpty(request.EditPlanet.Description) && !request.EditPlanet.DescriptionAuthorId.HasValue)
             {
                 throw new ValidationException();
             }        
+        }
+
+        private void DeleteExistingDescription(int? descriptionId)
+        {
+            if (!descriptionId.HasValue)
+            {
+                return;
+            }
+
+            var description = _context.Descriptions.FirstOrDefault(d => d.Id == descriptionId);
+            if (description != null)
+            {
+                _context.Descriptions.Remove(description);
+            }
         }
     }
 }
