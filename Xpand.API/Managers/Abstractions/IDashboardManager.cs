@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Xpand.API.Domain.Models;
 
-namespace Xpand.API.Managers
+namespace Xpand.API.Managers.Abstractions
 {
     public interface IDashboardManager
     {

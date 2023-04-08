@@ -1,4 +1,5 @@
 import { SafeUrl } from '@angular/platform-browser';
+import { Captain } from './captain.model';
 import { PlanetStatus } from './planet-status.model';
 
 export interface Planet {
@@ -12,7 +13,7 @@ export interface Planet {
 
     description?: string;
 
-    descriptionAuthor?: string;
+    descriptionAuthor?: Captain;
 
     status: PlanetStatus;
 

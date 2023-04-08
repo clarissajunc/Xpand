@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Xpand.API;
 using Xpand.API.Managers;
+using Xpand.API.Managers.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Xpand.CrewsAPI.Models;
+using Xpand.CrewsAPI.Data.Models;
 
 namespace Xpand.CrewsAPI.Data
 {

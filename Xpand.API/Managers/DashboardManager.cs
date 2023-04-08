@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using Xpand.API.Domain.Models;
+using Xpand.API.Managers.Abstractions;
 
 namespace Xpand.API.Managers
 {
@@ -30,8 +31,33 @@ namespace Xpand.API.Managers
                     .SelectMany(c => c.Robots)
                     .Select(r => r.Name)
                     .ToList();
+                //add mapping
             }
             return planets;
+        }
+
+        public async Task<HttpStatusCode> UpdatePlanetAsync(int planetId, EditPlanet editPlanet)
+        {
+            if (planetId == default)
+            {
+                throw new ArgumentNullException(nameof(planetId));
+            }
+
+            if (editPlanet == null)
+            {
+                throw new ArgumentNullException(nameof(editPlanet));
+            }
+
+            if (planetId != editPlanet.Id)
+            {
+                throw new ArgumentException($"The {planetId} cannot be different", nameof(editPlanet));
+            }
+
+            var response = await _httpClient.PostAsync(
+                $"{_servicesConfig.PlanetsUrl}/planets/{planetId}",
+                new StringContent(JsonConvert.SerializeObject(editPlanet), Encoding.UTF8, "application/json"));
+
+            return response.StatusCode;
         }
 
         private async Task<IEnumerable<Planet>> GetAllPlanetsAsync()
@@ -57,30 +83,6 @@ namespace Xpand.API.Managers
             //TODO add validation
 
             return content;
-        }
-
-        public async Task<HttpStatusCode> UpdatePlanetAsync(int planetId, EditPlanet editPlanet)
-        {
-            if (planetId == default)
-            {
-                throw new ArgumentNullException(nameof(planetId));
-            }
-
-            if (editPlanet == null)
-            {
-                throw new ArgumentNullException(nameof(editPlanet));
-            }
-
-            if (planetId != editPlanet.Id)
-            {
-                throw new ArgumentException($"The {planetId} cannot be different", nameof(editPlanet));
-            }
-
-            var response = await _httpClient.PostAsync(
-                $"{_servicesConfig.PlanetsUrl}/planets/{planetId}",
-                new StringContent(JsonConvert.SerializeObject(editPlanet), Encoding.UTF8, "application/json"));
-
-            return response.StatusCode;
         }
     }
 }

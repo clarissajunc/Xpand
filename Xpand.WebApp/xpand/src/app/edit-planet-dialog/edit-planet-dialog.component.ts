@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditPlanet, Planet, PlanetStatus } from '../models';
-import { PlanetService } from '../services';
+import { Observable } from 'rxjs';
+import { Captain, EditPlanet, Planet, PlanetStatus } from '../models';
+import { CaptainService, PlanetService } from '../services';
 
 @Component({
     selector: 'app-edit-planet-dialog',
@@ -17,24 +18,7 @@ export class EditPlanetDialogComponent {
 
     public planetForm: FormGroup;
 
-    constructor(
-        private _service: PlanetService,
-        private _dialog: MatDialogRef<EditPlanetDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) data: any
-    ) {
-        if (!data || !data.planet) {
-            this._dialog.close();
-        }
-
-        this.planet = data.planet;
-
-        this.planetForm = new FormGroup({
-            description: new FormControl(this.planet.description),
-            status: new FormControl(this.planet.status)
-        });
-
-        this._dialog.updateSize('80%', 'auto');
-    }
+    public captains$: Observable<Captain[]>;
 
     public get availableStates(): PlanetStatus[] {
         switch (this.planetForm?.controls['status'].value) {
@@ -50,6 +34,29 @@ export class EditPlanetDialogComponent {
         }
     }
 
+    constructor(
+        private _planetService: PlanetService,
+        private _captainService: CaptainService,
+        private _dialog: MatDialogRef<EditPlanetDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) data: any
+    ) {
+        if (!data || !data.planet) {
+            this._dialog.close();
+        }
+
+        this.planet = data.planet;
+
+        this.planetForm = new FormGroup({
+            authorId: new FormControl(this.planet.descriptionAuthor?.id),
+            description: new FormControl(this.planet.description),
+            status: new FormControl(this.planet.status)
+        });
+
+        this._dialog.updateSize('80%', 'auto');
+
+        this.captains$ = this._captainService.getAll();
+    }
+
     public getStateString(state: PlanetStatus): string {
         switch (state) {
             case PlanetStatus.TODO: return 'TODO';
@@ -60,15 +67,14 @@ export class EditPlanetDialogComponent {
         }
     }
 
-
     public onSave(): void {
         console.log(this.planetForm.value);
 
-        this._service.updatePlanet(this.planet.id, <EditPlanet>{
+        this._planetService.updatePlanet(this.planet.id, <EditPlanet>{
             id: this.planet.id,
             description: this.planetForm.controls['description'].value,
             planetStatus: this.planetForm.controls['status'].value,
-            descriptionAuthorId: this.planetForm.controls['description'].value ? 4 : null,
+            descriptionAuthorId: this.planetForm.controls['authorId'].value,
         }).subscribe(() => {
             this._dialog.close(true);
         });

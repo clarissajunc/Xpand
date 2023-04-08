@@ -1,6 +1,6 @@
 ﻿using Xpand.PlanetsAPI.Data.Models.Enums;
 
-namespace Xpand.PlanetsAPI.Models
+namespace Xpand.PlanetsAPI.DTOs
 {
     public class EditPlanet
     {

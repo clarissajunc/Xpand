@@ -1,4 +1,4 @@
-<div class="dialog-container">
+<div class="dialog-container" *ngIf="captains$ | async as captains">
     <div class="header">
         <span class="title">Edit planet {{planet.name}}</span>
         <img class="close" src="assets/icon-close.svg" (click)="close()" />
@@ -9,28 +9,33 @@
             <form [formGroup]="planetForm">
                 <mat-form-field appearance="fill">
                     <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description"></textarea>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"
+                        formControlName="description"></textarea>
                 </mat-form-field>
-                <!-- <label for="description">Description: </label>
-                <input id="description" type="text" formControlName="description"> -->
                 <mat-form-field appearance="fill">
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status">
                         <mat-option *ngFor="let state of availableStates" [value]="state">
-                            {{  getStateString(state)}}
+                            {{ getStateString(state)}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <!-- <label for="status">Status: </label>
-                <input id="status" type="text" formControlName="status"> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Captain</mat-label>
+                    <mat-select formControlName="authorId">
+                        <mat-option *ngFor="let captain of captains" [value]="captain.id">
+                            {{ captain.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </form>
         </div>
     </mat-dialog-content>
 
     <mat-dialog-actions>
         <div class="actions">
-            <button [disabled]="!planetForm.valid" (click)="onSave()">Save</button>
-            <button (click)="close()">Cancel</button>
+            <button class="btn btn-light" [disabled]="!planetForm.valid" (click)="onSave()">Save</button>
+            <button class="btn btn-light" (click)="close()">Cancel</button>
         </div>
     </mat-dialog-actions>
 </div>

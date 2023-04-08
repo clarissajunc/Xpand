@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Xpand.CrewsAPI.Data;
-using Xpand.CrewsAPI.Models;
+using Xpand.CrewsAPI.Data.Models;
 using Xpand.CrewsAPI.Queries;
 
 namespace Xpand.CrewsAPI.QueryHandlers

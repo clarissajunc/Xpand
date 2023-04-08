@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Xpand.PlanetsAPI.Models;
+using Xpand.PlanetsAPI.DTOs;
 
 namespace Xpand.PlanetsAPI.Commands
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Xpand.API.Domain.Models;
-using Xpand.API.Managers;
+using Xpand.API.Managers.Abstractions;
 
 namespace Xpand.API.Controllers
 {
@@ -8,17 +8,17 @@ namespace Xpand.API.Controllers
     [Route("[controller]")]
     public class DashboardController : Controller
     {
-        private readonly IDashboardManager _dashboardManager;
+        private readonly IDashboardManager _manager;
 
-        public DashboardController(IDashboardManager dashboardManager)
+        public DashboardController(IDashboardManager manager)
         {
-            _dashboardManager = dashboardManager;
+            _manager = manager;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetDashboardAsync()
         {
-            var dashboard = await _dashboardManager.GetDashboardAsync();
+            var dashboard = await _manager.GetDashboardAsync();
 
             return Ok(dashboard);
         }
@@ -46,7 +46,7 @@ namespace Xpand.API.Controllers
                 return BadRequest();
             }
 
-            var httpStatusCode = await _dashboardManager.UpdatePlanetAsync(planetId, planet);
+            var httpStatusCode = await _manager.UpdatePlanetAsync(planetId, planet);
 
             return httpStatusCode switch
             {

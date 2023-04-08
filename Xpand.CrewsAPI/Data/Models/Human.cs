@@ -1,4 +1,4 @@
-﻿namespace Xpand.CrewsAPI.Models
+﻿namespace Xpand.CrewsAPI.Data.Models
 {
     public class Human
     {

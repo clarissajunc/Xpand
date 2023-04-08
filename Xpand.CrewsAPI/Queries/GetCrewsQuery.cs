@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System.Linq.Expressions;
-using Xpand.CrewsAPI.Models;
+using Xpand.CrewsAPI.Data.Models;
 
 namespace Xpand.CrewsAPI.Queries
 {
