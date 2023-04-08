@@ -2,15 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { Captain, EditPlanet, Planet } from '../models';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PlanetService {
 
-    private readonly _url = 'https://localhost:44364/dashboard';
+    private readonly _url: string;
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient, _appConfig: AppConfigService) { 
+        this._url = `${_appConfig.apiBaseUrl}/dashboard`
+    }
 
     public getAll(): Observable<Planet[]> {
         return this._httpClient.get<Planet[]>(this._url)

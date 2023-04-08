@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { AppConfigService } from './services';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,16 @@ import { TextFieldModule } from '@angular/cdk/text-field';
         TextFieldModule,
         BrowserAnimationsModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            deps: [AppConfigService],
+            multi: true,
+            useFactory: (appConfigService: AppConfigService) => {
+                return () => appConfigService.load();
+            }
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,7 +28,7 @@ namespace Xpand.API.Controllers
             IEnumerable<Planet> planets = await _planetManager.GetAllAsync();
             IEnumerable<Crew> crews = await _crewManager.GetAllCrewsAsync();
 
-            IEnumerable<DTOs.Planet> planetDTOs = planets.Select(_mapper.Map<DTOs.Planet>);
+            List<DTOs.Planet> planetDTOs = planets.Select(_mapper.Map<DTOs.Planet>).ToList();
             if (!planetDTOs.Any() || !crews.Any())
             {
                 Ok(planetDTOs);
@@ -36,6 +36,7 @@ namespace Xpand.API.Controllers
 
             foreach (var planet in planetDTOs)
             {
+                //var currentPlanet = planet;
                 if (!planet.CrewId.HasValue)
                 {
                     continue;
