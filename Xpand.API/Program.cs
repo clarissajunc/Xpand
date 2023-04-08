@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Xpand.API;
@@ -11,11 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Xpand API", Version = "v1" }));
 
-builder.Services.AddScoped<IDashboardManager, DashboardManager>();
-builder.Services.AddHttpClient<IDashboardManager, DashboardManager>();
+builder.Services.AddScoped<ICrewManager, CrewManager>();
+builder.Services.AddHttpClient<ICrewManager, CrewManager>();
+
+builder.Services.AddScoped<IPlanetManager, PlanetManager>();
+builder.Services.AddHttpClient<IPlanetManager, PlanetManager>();
+
 builder.Services.Configure<ServicesConfiguration>(
     builder.Configuration.GetSection(ServicesConfiguration.Position)
 );
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowXpandWebApp", builder =>

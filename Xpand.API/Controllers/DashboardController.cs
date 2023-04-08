@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Xpand.API.Domain.Models;
 using Xpand.API.Managers.Abstractions;
 
@@ -8,19 +9,45 @@ namespace Xpand.API.Controllers
     [Route("[controller]")]
     public class DashboardController : Controller
     {
-        private readonly IDashboardManager _manager;
+        private readonly IPlanetManager _planetManager;
 
-        public DashboardController(IDashboardManager manager)
+        private readonly ICrewManager _crewManager;
+
+        private readonly IMapper _mapper;
+
+        public DashboardController(IMapper mapper, IPlanetManager planetManager, ICrewManager crewManager)
         {
-            _manager = manager;
+            _mapper = mapper;
+            _planetManager = planetManager;
+            _crewManager = crewManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetDashboardAsync()
         {
-            var dashboard = await _manager.GetDashboardAsync();
+            IEnumerable<Planet> planets = await _planetManager.GetAllAsync();
+            IEnumerable<Crew> crews = await _crewManager.GetAllCrewsAsync();
 
-            return Ok(dashboard);
+            IEnumerable<DTOs.Planet> planetDTOs = planets.Select(_mapper.Map<DTOs.Planet>);
+            if (!planetDTOs.Any() || !crews.Any())
+            {
+                Ok(planetDTOs);
+            }
+
+            foreach (var planet in planetDTOs)
+            {
+                if (!planet.CrewId.HasValue)
+                {
+                    continue;
+                }
+
+                planet.Robots = crews.Where(c => c.Id == planet.CrewId.Value)
+                    .SelectMany(c => c.Robots)
+                    .Select(r => r.Name)
+                    .ToList();
+            }
+
+            return Ok(planetDTOs);
         }
 
         [HttpPost("{planetId}")]
@@ -46,7 +73,7 @@ namespace Xpand.API.Controllers
                 return BadRequest();
             }
 
-            var httpStatusCode = await _manager.UpdatePlanetAsync(planetId, planet);
+            var httpStatusCode = await _planetManager.UpdateAsync(planetId, planet);
 
             return httpStatusCode switch
             {

@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xpand.PlanetsAPI.Commands;
-using Xpand.PlanetsAPI.Data.Models;
+using Xpand.PlanetsAPI.DTOs;
 using Xpand.PlanetsAPI.Exceptions;
-using Xpand.PlanetsAPI.Models;
 using Xpand.PlanetsAPI.Queries;
 
 namespace Xpand.PlanetsAPI.Controllers

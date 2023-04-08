@@ -7,9 +7,9 @@ namespace Xpand.API.Controllers
     [Route("[controller]")]
     public class CaptainsController : Controller
     {
-        private readonly ICaptainManager _manager;
+        private readonly ICrewManager _manager;
 
-        public CaptainsController(ICaptainManager manager)
+        public CaptainsController(ICrewManager manager)
         {
             _manager = manager;
         }
@@ -17,7 +17,7 @@ namespace Xpand.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var captains = await _manager.GetAllAsync();
+            var captains = await _manager.GetAllCaptainsAsync();
 
             return Ok(captains);
         }
