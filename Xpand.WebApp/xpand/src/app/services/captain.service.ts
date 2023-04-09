@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Captain } from '../models';
 import { AppConfigService } from './app-config.service';
 
@@ -22,7 +22,7 @@ export class CaptainService {
                 catchError((error) => {
                     console.error('[CaptainService]: Error loading the captains.')
 
-                    throw error;
+                    return throwError(() => error);
                 })
             )
     }

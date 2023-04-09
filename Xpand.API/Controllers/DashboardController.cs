@@ -26,6 +26,7 @@ namespace Xpand.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetDashboardAsync()
         {
+
             IEnumerable<Planet> planets = await _planetManager.GetAllAsync();
             IEnumerable<Crew> crews = await _crewManager.GetAllCrewsAsync();
 

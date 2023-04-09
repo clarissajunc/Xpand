@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Captain, EditPlanet, Planet } from '../models';
 import { AppConfigService } from './app-config.service';
 
@@ -22,7 +22,7 @@ export class PlanetService {
                 catchError((error) => {
                     console.error('[PlanetService]: Error loading the planets.')
 
-                    throw error;
+                    return throwError(() => error);
                 })
             )
     }
@@ -34,7 +34,7 @@ export class PlanetService {
                 catchError((error) => {
                     console.error('[PlanetService]: Error loading the planets.')
 
-                    throw error;
+                    return throwError(() => error);
                 })
             )
     }

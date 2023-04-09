@@ -1,5 +1,5 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,12 +13,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { AppConfigService } from './services';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { GlobalErrorHandler } from './handlers';
 
 @NgModule({
     declarations: [
         AppComponent,
         PlanetItemComponent,
-        EditPlanetDialogComponent
+        EditPlanetDialogComponent,
+        ErrorDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -40,6 +43,10 @@ import { AppConfigService } from './services';
             useFactory: (appConfigService: AppConfigService) => {
                 return () => appConfigService.load();
             }
+        },
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler,
         }
     ],
     bootstrap: [AppComponent]

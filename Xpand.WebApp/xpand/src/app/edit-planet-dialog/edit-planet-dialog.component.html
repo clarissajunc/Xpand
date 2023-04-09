@@ -1,22 +1,23 @@
 <div class="dialog-container" *ngIf="captains$ | async as captains">
     <div class="header">
-        <span class="title">Edit planet {{planet.name}}</span>
+        <span class="title">Edit {{planet.name}}</span>
         <img class="close" src="assets/icon-close.svg" (click)="close()" />
     </div>
 
     <mat-dialog-content>
-        <div class="content">
+        <div>
             <form [formGroup]="planetForm">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" class="form-input">
                     <mat-label>Description</mat-label>
                     <textarea matInput 
                         cdkTextareaAutosize 
                         cdkAutosizeMinRows="3" 
                         cdkAutosizeMaxRows="10"
                         maxlength="150"
+                        [style.fontSize]="'14px'"
                         formControlName="description"></textarea>
                 </mat-form-field>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" class="form-input">
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status">
                         <mat-option *ngFor="let state of availableStates" [value]="state">
@@ -24,7 +25,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" class="form-input">
                     <mat-label>Captain</mat-label>
                     <mat-select formControlName="authorId">
                         <mat-option *ngFor="let captain of captains" [value]="captain.id">

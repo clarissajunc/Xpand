@@ -8,12 +8,12 @@
             {{planet.description ?? 'No description yet. :/'}}
         </p>
         <div class="author" *ngIf="planet.descriptionAuthor">
-            <p>by captain </p>
+            <p class="label">by captain </p>
             <p>{{planet.descriptionAuthor.name}}</p>
         </div>
         <div class="robots" *ngIf="planet.robots">
-            <p>Robots: </p>
-            <p>{{planet.robots}}</p>
+            <p class="label">Robots: </p>
+            <p class="robots-list">{{planet.robots}}</p>
         </div>
 
     </div>

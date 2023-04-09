@@ -1,5 +1,5 @@
 .dialog-container {
-    padding: 1.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
 
@@ -7,7 +7,9 @@
         display: flex;
         justify-content: space-between;
 
-        .title {}
+        .title {
+            font-size: 1.3rem;
+        }
 
         .close {
             float: right;
@@ -18,6 +20,10 @@
                 cursor: pointer;
             }
         }
+    }
+
+    .form-input{
+        width: 100%;
     }
 
     .actions {
@@ -32,5 +38,9 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
+    }
+
+    .mdc-dialog__content {
+        padding: 20px 0px 20px 0px;
     }
 }

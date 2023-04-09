@@ -1,0 +1,30 @@
+.error_dialog {
+    user-select: none;
+
+    padding: 1rem;
+    background-color: white;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            font-size: 1.3rem;
+        }
+
+        .close {
+            float: right;
+            width: 1.2rem;
+            height: 1.2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .content {
+        padding-top: 1rem;
+    }
+}
