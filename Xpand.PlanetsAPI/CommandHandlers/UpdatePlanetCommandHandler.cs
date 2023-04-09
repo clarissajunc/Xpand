@@ -24,12 +24,12 @@ namespace Xpand.PlanetsAPI.CommandHandlers
             var planet = _context.Planets.FirstOrDefault(p => p.Id == request.EditPlanet.Id);
             if (planet == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("Planet not found.");
             }
 
             if (!IsValidStatus(request.EditPlanet.PlanetStatus, planet.Status))
             {
-                throw new ValidationException();
+                throw new ValidationException("Planet status invalid.");
             }
 
             DeleteExistingDescription(planet.DescriptionId);
@@ -41,7 +41,15 @@ namespace Xpand.PlanetsAPI.CommandHandlers
             };
 
             _context.Planets.Update(planet);
-            _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            } 
+            catch(Exception ex)
+            {
+                throw new DatabaseException($"An error occured when saving the data: {ex.Message}");
+            }
 
             return Task.CompletedTask;
         }
@@ -71,12 +79,12 @@ namespace Xpand.PlanetsAPI.CommandHandlers
 
             if (string.IsNullOrEmpty(request.EditPlanet.Description) && request.EditPlanet.DescriptionAuthorId.HasValue)
             {
-                throw new ValidationException();
+                throw new ValidationException("If description is empty, then author needs to be empty as well.");
             }
 
             if (!string.IsNullOrEmpty(request.EditPlanet.Description) && !request.EditPlanet.DescriptionAuthorId.HasValue)
             {
-                throw new ValidationException();
+                throw new ValidationException("If description has value, then author needs to have value as well.");
             }        
         }
 

@@ -7,6 +7,6 @@ namespace Xpand.API.Managers.Abstractions
     {
         Task<IEnumerable<Planet>> GetAllAsync();
 
-        Task<HttpStatusCode> UpdateAsync(int planetId, EditPlanet editPlanet);
+        Task UpdateAsync(int planetId, EditPlanet editPlanet);
     }
 }

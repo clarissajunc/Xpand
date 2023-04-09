@@ -17,6 +17,8 @@ builder.Services.AddDbContext<PlanetContext>(opt => opt.UseSqlServer(builder.Con
 
 var app = builder.Build();
 
+app.UseExceptionHandler("/error");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

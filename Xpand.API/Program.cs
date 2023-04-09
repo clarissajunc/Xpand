@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Xpand.API;
 using Xpand.API.Managers;
@@ -8,7 +6,6 @@ using Xpand.API.Managers.Abstractions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Xpand API", Version = "v1" }));
 
@@ -32,6 +29,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.UseExceptionHandler("/error");
 
 if (app.Environment.IsDevelopment())
 {

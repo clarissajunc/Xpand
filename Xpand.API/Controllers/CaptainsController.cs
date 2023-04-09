@@ -15,6 +15,7 @@ namespace Xpand.API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
             var captains = await _manager.GetAllCaptainsAsync();

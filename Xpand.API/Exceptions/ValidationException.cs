@@ -1,4 +1,4 @@
-﻿namespace Xpand.PlanetsAPI.Exceptions
+﻿namespace Xpand.API.Exceptions
 {
     public class ValidationException : Exception
     {

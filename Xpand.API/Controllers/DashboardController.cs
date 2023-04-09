@@ -23,6 +23,7 @@ namespace Xpand.API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetDashboardAsync()
         {
             IEnumerable<Planet> planets = await _planetManager.GetAllAsync();
@@ -51,6 +52,9 @@ namespace Xpand.API.Controllers
         }
 
         [HttpPost("{planetId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdatePlanetAsync(int planetId, [FromBody] EditPlanet planet)
         {
             if (planetId == default)
@@ -73,15 +77,9 @@ namespace Xpand.API.Controllers
                 return BadRequest();
             }
 
-            var httpStatusCode = await _planetManager.UpdateAsync(planetId, planet);
+            await _planetManager.UpdateAsync(planetId, planet!);
 
-            return httpStatusCode switch
-            {
-                System.Net.HttpStatusCode.NoContent => NoContent(),
-                System.Net.HttpStatusCode.NotFound => NotFound(),
-                System.Net.HttpStatusCode.InternalServerError => BadRequest(),
-                _ => BadRequest(),
-            };
+            return NoContent();
         }
     }
 }

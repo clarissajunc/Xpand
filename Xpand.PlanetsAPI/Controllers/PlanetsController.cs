@@ -20,6 +20,7 @@ namespace Xpand.PlanetsAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
             var planets = await _mediator.Send(new GetPlanetsQuery());
@@ -30,13 +31,16 @@ namespace Xpand.PlanetsAPI.Controllers
 
             if (planetsWithAuthors == null || !planetsWithAuthors.Any())
             {
-                return NoContent();
+                return Ok();
             }
 
             return Ok(planetsWithAuthors);
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAsync(int id)
         {
             if (id == default)
@@ -54,6 +58,10 @@ namespace Xpand.PlanetsAPI.Controllers
         }
 
         [HttpPost("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] EditPlanet planet)
         {
             if (id == default)
@@ -76,22 +84,7 @@ namespace Xpand.PlanetsAPI.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                await _mediator.Send(new UpdatePlanetCommand(planet!));
-            }
-            catch (Exception ex)
-            {
-                if (ex is ValidationException || ex is ArgumentNullException)
-                {
-                    return BadRequest();
-                }
-
-                if (ex is NotFoundException)
-                {
-                    return NotFound();
-                }
-            }
+            await _mediator.Send(new UpdatePlanetCommand(planet!));
 
             return NoContent();
         }

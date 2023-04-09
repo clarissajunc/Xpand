@@ -16,6 +16,8 @@ namespace Xpand.CrewsAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllCaptainsAsync()
         {
             var crews = await _mediator.Send(new GetCaptainsQuery());

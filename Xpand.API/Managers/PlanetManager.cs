@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using Xpand.API.Domain.Models;
+using Xpand.API.Exceptions;
 using Xpand.API.Managers.Abstractions;
 
 namespace Xpand.API.Managers
@@ -30,7 +32,7 @@ namespace Xpand.API.Managers
             return content ?? new List<Planet>();
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int planetId, EditPlanet editPlanet)
+        public async Task UpdateAsync(int planetId, EditPlanet editPlanet)
         {
             if (planetId == default)
             {
@@ -44,14 +46,25 @@ namespace Xpand.API.Managers
 
             if (planetId != editPlanet.Id)
             {
-                throw new ArgumentException($"The {planetId} cannot be different", nameof(editPlanet));
+                throw new ValidationException($"The {planetId} cannot be different");
             }
 
             var response = await _httpClient.PostAsync(
                 $"{_servicesConfig.PlanetsUrl}/planets/{planetId}",
                 new StringContent(JsonConvert.SerializeObject(editPlanet), Encoding.UTF8, "application/json"));
 
-            return response.StatusCode;
+            if (!response.IsSuccessStatusCode)
+            {
+                try
+                {
+                    var errorMessage = JsonConvert.DeserializeObject<ProblemDetails>(await response.Content.ReadAsStringAsync());
+                    throw new Exception(errorMessage!.Detail);
+                }
+                catch(JsonException)
+                {
+                    throw new Exception("Failed to deserialize error response.");
+                }
+            }   
         }
     }
 }

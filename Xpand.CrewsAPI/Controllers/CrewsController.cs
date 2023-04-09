@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using Xpand.CrewsAPI.Queries;
 
 namespace Xpand.CrewsAPI.Controllers
@@ -17,6 +18,8 @@ namespace Xpand.CrewsAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
             var crews = await _mediator.Send(new GetCrewsQuery());
@@ -31,6 +34,8 @@ namespace Xpand.CrewsAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAsync(int id)
         {
             if (id == default)
