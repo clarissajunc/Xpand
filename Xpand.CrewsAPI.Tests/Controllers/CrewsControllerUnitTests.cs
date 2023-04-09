@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xpand.CrewsAPI.Controllers;
@@ -20,7 +21,7 @@ namespace Xpand.CrewsAPI.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsNoContentResultAsync()
+        public async Task GetAllAsync_ReturnsOkResulttAsync()
         { 
             //Arrange
             _mediatorMock.Setup(m => m.Send(It.IsAny<GetCrewsQuery>(), CancellationToken.None))
@@ -30,7 +31,7 @@ namespace Xpand.CrewsAPI.Tests.Controllers
 
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<OkResult>(result);
         }
 
         [Fact]

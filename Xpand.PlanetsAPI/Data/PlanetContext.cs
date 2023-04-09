@@ -6,16 +6,21 @@ namespace Xpand.PlanetsAPI.Data
 {
     public class PlanetContext : DbContext
     {
-        public DbSet<Captain> Captains { get; set; }
+        public virtual DbSet<Captain> Captains { get; set; }
 
-        public DbSet<Image> Images { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
 
-        public DbSet<Planet> Planets { get; set; }
+        public virtual DbSet<Planet> Planets { get; set; }
 
-        public DbSet<Description> Descriptions { get; set; }
+        public virtual DbSet<Description> Descriptions { get; set; }
 
         public PlanetContext(DbContextOptions<PlanetContext> options) : base(options)
         {
+        }
+
+        public PlanetContext()
+        {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

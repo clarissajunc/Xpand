@@ -81,10 +81,10 @@ namespace Xpand.PlanetsAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            await _mediator.Send(new UpdatePlanetCommand(planet!));
+            await _mediator.Publish(new UpdatePlanetCommand(planet!));
 
             return NoContent();
         }

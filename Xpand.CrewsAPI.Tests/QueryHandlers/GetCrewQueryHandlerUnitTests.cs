@@ -30,8 +30,6 @@ namespace Xpand.CrewsAPI.Tests.QueryHandlers
             };
             _contextMock.Setup(c => c.Crews)
                         .ReturnsDbSet(crews);
-            _contextMock.Setup(c => c.Humans)
-                        .ReturnsDbSet(new List<Human>());
 
             //Act
             var query = new GetCrewQuery 
@@ -58,8 +56,6 @@ namespace Xpand.CrewsAPI.Tests.QueryHandlers
             };
             _contextMock.Setup(c => c.Crews)
                         .ReturnsDbSet(crews);
-            _contextMock.Setup(c => c.Humans)
-                        .ReturnsDbSet(new List<Human>());
 
             //Act
             var query = new GetCrewQuery

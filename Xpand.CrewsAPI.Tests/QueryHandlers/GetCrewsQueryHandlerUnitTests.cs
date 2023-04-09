@@ -25,8 +25,6 @@ namespace Xpand.CrewsAPI.Tests.QueryHandlers
             //Arrange
             _contextMock.Setup(c => c.Crews)
                         .ReturnsDbSet(new List<Crew>());
-            _contextMock.Setup(c => c.Humans)
-                        .ReturnsDbSet(new List<Human>());
 
             //Act
             var x = await _queryHandler.Handle(new GetCrewsQuery(), CancellationToken.None);

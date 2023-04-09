@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.PlanetsAPI", "Xpand.PlanetsAPI.csproj", "{D33416E5-5B39-4EBD-8FF8-6C9FAE7A5D68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpand.PlanetsAPI", "Xpand.PlanetsAPI.csproj", "{D33416E5-5B39-4EBD-8FF8-6C9FAE7A5D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.PlanetsAPI.Tests", "..\Xpand.PlanetsAPI.Tests\Xpand.PlanetsAPI.Tests.csproj", "{AFCE7E28-91C0-4BAA-AABB-7CFEBA396795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D33416E5-5B39-4EBD-8FF8-6C9FAE7A5D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D33416E5-5B39-4EBD-8FF8-6C9FAE7A5D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D33416E5-5B39-4EBD-8FF8-6C9FAE7A5D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCE7E28-91C0-4BAA-AABB-7CFEBA396795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCE7E28-91C0-4BAA-AABB-7CFEBA396795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCE7E28-91C0-4BAA-AABB-7CFEBA396795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCE7E28-91C0-4BAA-AABB-7CFEBA396795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

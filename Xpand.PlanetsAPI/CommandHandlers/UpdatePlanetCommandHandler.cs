@@ -8,7 +8,7 @@ using Xpand.PlanetsAPI.Exceptions;
 
 namespace Xpand.PlanetsAPI.CommandHandlers
 {
-    public class UpdatePlanetCommandHandler : IRequestHandler<UpdatePlanetCommand>
+    public class UpdatePlanetCommandHandler : INotificationHandler<UpdatePlanetCommand>
     {
         private readonly PlanetContext _context;
 
@@ -67,11 +67,6 @@ namespace Xpand.PlanetsAPI.CommandHandlers
 
         private void ValidateRequest(UpdatePlanetCommand request)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
-
             if (request.EditPlanet == null)
             {
                 throw new ArgumentException(nameof(request));
