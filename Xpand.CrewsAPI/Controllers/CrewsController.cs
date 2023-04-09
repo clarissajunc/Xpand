@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using Xpand.CrewsAPI.Queries;
 
 namespace Xpand.CrewsAPI.Controllers

@@ -5,14 +5,19 @@ namespace Xpand.CrewsAPI.Data
 {
     public class CrewContext : DbContext
     {
-        public DbSet<Crew> Crews { get; set; }
+        public virtual DbSet<Crew> Crews { get; set; }
 
-        public DbSet<Human> Humans { get; set; }
+        public virtual DbSet<Human> Humans { get; set; }
 
-        public DbSet<Robot> Robots { get; set; }
+        public virtual DbSet<Robot> Robots { get; set; }
 
         public CrewContext(DbContextOptions<CrewContext> options) : base(options)
         {
+        }
+
+        public CrewContext()
+        {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

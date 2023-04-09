@@ -18,16 +18,16 @@ namespace Xpand.CrewsAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetAllCaptainsAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var crews = await _mediator.Send(new GetCaptainsQuery());
+            var captains = await _mediator.Send(new GetCaptainsQuery());
 
-            if (crews == null || !crews.Any())
+            if (captains == null || !captains.Any())
             {
                 return NoContent();
             }
 
-            return Ok(crews);
+            return Ok(captains);
         }
     }
 }

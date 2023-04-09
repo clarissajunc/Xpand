@@ -13,6 +13,7 @@ namespace Xpand.CrewsAPI.QueryHandlers
         {
             _context = context;
         }
+
         public Task<IQueryable<Human>> Handle(GetCaptainsQuery request, CancellationToken cancellationToken)
         {
             return Task.FromResult(_context.Humans.Where(request.Predicate).AsQueryable());
