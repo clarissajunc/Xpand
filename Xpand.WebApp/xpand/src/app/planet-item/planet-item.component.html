@@ -13,7 +13,7 @@
         </div>
         <div class="robots" *ngIf="planet.robots">
             <p class="label">Robots: </p>
-            <p class="robots-list">{{planet.robots}}</p>
+            <p class="robots-list">{{planet.robots.length > 0 ? planet.robots : '-'}}</p>
         </div>
 
     </div>
