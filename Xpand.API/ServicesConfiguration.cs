@@ -7,7 +7,5 @@
         public string PlanetsUrl { get; set; } = string.Empty;
 
         public string CrewsUrl { get; set; } = string.Empty;
-
-        public string ShuttlesUrl { get; set; } = string.Empty;
     }
 }

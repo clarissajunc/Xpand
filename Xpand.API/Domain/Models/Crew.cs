@@ -4,7 +4,8 @@
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
+
         public int CaptainId { get; set; }
 
         public Human Captain { get; set; } = null!;

@@ -21,7 +21,7 @@ namespace Xpand.CrewsAPI.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsOkResulttAsync()
+        public async Task GetAllAsync_ReturnsOkResultAsync()
         { 
             //Arrange
             _mediatorMock.Setup(m => m.Send(It.IsAny<GetCrewsQuery>(), CancellationToken.None))

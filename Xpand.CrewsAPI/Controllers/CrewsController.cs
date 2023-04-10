@@ -26,7 +26,7 @@ namespace Xpand.CrewsAPI.Controllers
 
             if (fullCrews == null || !fullCrews.Any()) 
             {
-                return NoContent();
+                return Ok();
             }
 
             return Ok(fullCrews);

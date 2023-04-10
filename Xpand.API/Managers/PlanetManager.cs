@@ -25,11 +25,16 @@ namespace Xpand.API.Managers
         {
             var response = await _httpClient.GetAsync($"{_servicesConfig.PlanetsUrl}/planets");
 
-            var content = JsonConvert.DeserializeObject<IEnumerable<Planet>?>(
+            if (response.IsSuccessStatusCode)
+            {
+                var content = JsonConvert.DeserializeObject<IEnumerable<Planet>?>(
                         await response.Content.ReadAsStringAsync()
-             );
+                );
 
-            return content ?? new List<Planet>();
+                return content ?? new List<Planet>();
+            }
+            
+            return new List<Planet>();
         }
 
         public async Task UpdateAsync(int planetId, EditPlanet editPlanet)

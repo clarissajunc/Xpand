@@ -1,30 +1,29 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Xpand.CrewsAPI.Controllers;
-using Xpand.CrewsAPI.Data.Models;
-using Xpand.CrewsAPI.Queries;
+using Xpand.API.Controllers;
+using Xpand.API.Domain.Models;
+using Xpand.API.Managers.Abstractions;
 
-namespace Xpand.CrewsAPI.Tests.Controllers
+namespace Xpand.API.Tests.Controllers
 {
     public class CaptainsControllerUnitTests
     {
         private readonly CaptainsController _controller;
 
-        private readonly Mock<IMediator> _mediatorMock;
+        private readonly Mock<ICrewManager> _managerMock;
 
         public CaptainsControllerUnitTests()
         {
-            _mediatorMock = new Mock<IMediator>(MockBehavior.Strict);
-            _controller = new CaptainsController(_mediatorMock.Object);
+            _managerMock= new Mock<ICrewManager>();
+            _controller = new CaptainsController(_managerMock.Object);
         }
 
         [Fact]
         public async Task GetAllAsync_ReturnsNoContentResultAsync()
         {
             //Arrange
-            _mediatorMock.Setup(m => m.Send(It.IsAny<GetCaptainsQuery>(), CancellationToken.None))
-                         .ReturnsAsync((new List<Human>()).AsQueryable());
+            _managerMock.Setup(m => m.GetAllCaptainsAsync())
+                         .ReturnsAsync(new List<Human>());
             //Act
             var result = await _controller.GetAllAsync();
 
@@ -37,8 +36,8 @@ namespace Xpand.CrewsAPI.Tests.Controllers
         public async Task GetAllAsync_ReturnsOkObjectResultAsync()
         {
             //Arrange
-            _mediatorMock.Setup(m => m.Send(It.IsAny<GetCaptainsQuery>(), CancellationToken.None))
-                         .ReturnsAsync((new List<Human> { new Human() }).AsQueryable());
+            _managerMock.Setup(m => m.GetAllCaptainsAsync())
+                                     .ReturnsAsync(new List<Human> { new Human() });
             //Act
             var result = await _controller.GetAllAsync();
 

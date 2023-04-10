@@ -20,6 +20,11 @@ namespace Xpand.API.Controllers
         {
             var captains = await _manager.GetAllCaptainsAsync();
 
+            if (captains == null || !captains.Any())
+            {
+                return Ok();
+            }
+
             return Ok(captains);
         }
     }

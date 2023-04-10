@@ -5,7 +5,7 @@ using Xpand.API.Managers.Abstractions;
 
 namespace Xpand.API.Managers
 {
-    public class CrewManager: ICrewManager
+    public class CrewManager : ICrewManager
     {
         private readonly HttpClient _httpClient;
 
@@ -21,22 +21,32 @@ namespace Xpand.API.Managers
         {
             var response = await _httpClient.GetAsync($"{_servicesConfig.CrewsUrl}/crews");
 
-            var content = JsonConvert.DeserializeObject<IEnumerable<Crew>?>(
-                        await response.Content.ReadAsStringAsync()
-             );
+            if (response.IsSuccessStatusCode)
+            {
+                var content = JsonConvert.DeserializeObject<IEnumerable<Crew>?>(
+                            await response.Content.ReadAsStringAsync()
+                 );
 
-            return content ?? new List<Crew>();
+                return content ?? new List<Crew>();
+            }
+
+            return new List<Crew>();
         }
 
         public async Task<IEnumerable<Human>> GetAllCaptainsAsync()
         {
             var response = await _httpClient.GetAsync($"{_servicesConfig.CrewsUrl}/captains");
 
-            var content = JsonConvert.DeserializeObject<IEnumerable<Human>?>(
+            if (response.IsSuccessStatusCode)
+            {
+                var content = JsonConvert.DeserializeObject<IEnumerable<Human>?>(
                         await response.Content.ReadAsStringAsync()
-             );
+                );
 
-            return content ?? new List<Human>();
+                return content ?? new List<Human>();
+            }
+
+            return new List<Human>();
         }
     }
 }
