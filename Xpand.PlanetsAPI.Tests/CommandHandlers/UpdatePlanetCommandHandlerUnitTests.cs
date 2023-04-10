@@ -68,9 +68,7 @@ namespace Xpand.PlanetsAPI.Tests.CommandHandlers
         [InlineData(PlanetStatus.EnRoute, PlanetStatus.Ok)]
         [InlineData(PlanetStatus.EnRoute, PlanetStatus.NotOk)]
         [InlineData(PlanetStatus.Ok, PlanetStatus.Todo)]
-        [InlineData(PlanetStatus.Ok, PlanetStatus.EnRoute)]
         [InlineData(PlanetStatus.NotOk, PlanetStatus.Todo)]
-        [InlineData(PlanetStatus.NotOk, PlanetStatus.EnRoute)]
         public async Task UpdatePlanetCommand_InvalidState_ThrowsValidationExceptionAsync(PlanetStatus newStatus, PlanetStatus oldStatus)
         {
             //Arrange

@@ -28,6 +28,7 @@
                 <mat-form-field appearance="fill" class="form-input">
                     <mat-label>Captain</mat-label>
                     <mat-select formControlName="authorId">
+                        <mat-option>None</mat-option>
                         <mat-option *ngFor="let captain of captains" [value]="captain.id">
                             {{ captain.name }}
                         </mat-option>

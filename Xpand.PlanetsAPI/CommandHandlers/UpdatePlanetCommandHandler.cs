@@ -35,18 +35,27 @@ namespace Xpand.PlanetsAPI.CommandHandlers
             DeleteExistingDescription(planet.DescriptionId);
 
             planet.Status = request.EditPlanet.PlanetStatus;
-            planet.Description = new Description { 
-                Text = request.EditPlanet!.Description!, 
-                AuthorId = request.EditPlanet!.DescriptionAuthorId!.Value
-            };
+            if (string.IsNullOrEmpty(request.EditPlanet!.Description) && !request.EditPlanet!.DescriptionAuthorId!.HasValue)
+            {
+                planet.Description = null;
+                planet.DescriptionId = null;
+            }
+            else
+            {
+                planet.Description = new Description
+                {
+                    Text = request.EditPlanet!.Description!,
+                    AuthorId = request.EditPlanet!.DescriptionAuthorId!.Value
+                };
+            }
 
             _context.Planets.Update(planet);
 
             try
             {
                 _context.SaveChanges();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new DatabaseException($"An error occured when saving the data: {ex.Message}");
             }
@@ -60,7 +69,9 @@ namespace Xpand.PlanetsAPI.CommandHandlers
             {
                 PlanetStatus.Todo => oldStatus == PlanetStatus.Todo,
                 PlanetStatus.EnRoute => oldStatus == PlanetStatus.Todo || oldStatus == PlanetStatus.EnRoute,
-                PlanetStatus.Ok or PlanetStatus.NotOk => oldStatus == PlanetStatus.Ok || oldStatus == PlanetStatus.NotOk,
+                PlanetStatus.Ok or PlanetStatus.NotOk => oldStatus == PlanetStatus.Ok
+                                                         || oldStatus == PlanetStatus.NotOk
+                                                         || oldStatus == PlanetStatus.EnRoute,
                 _ => false
             };
         }
@@ -80,7 +91,7 @@ namespace Xpand.PlanetsAPI.CommandHandlers
             if (!string.IsNullOrEmpty(request.EditPlanet.Description) && !request.EditPlanet.DescriptionAuthorId.HasValue)
             {
                 throw new ValidationException("If description has value, then author needs to have value as well.");
-            }        
+            }
         }
 
         private void DeleteExistingDescription(int? descriptionId)
